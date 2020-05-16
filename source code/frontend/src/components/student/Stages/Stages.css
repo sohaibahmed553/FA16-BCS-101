@@ -1,0 +1,14 @@
+.parent {
+	padding: 60px 30px 30px 30px;
+}
+
+.listContainer {
+	/* list-style-type: none; */
+
+	/* padding: 0px 105px 0px 105px; */
+	/* margin: auto; */
+}
+
+.listItem {
+	float: left;
+}

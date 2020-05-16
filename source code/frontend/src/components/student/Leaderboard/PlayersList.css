@@ -1,0 +1,37 @@
+.listContainer {
+	width: 100%;
+	height: 90px;
+	list-style: none;
+}
+
+.rankDiv,
+.nameDiv,
+.scoreDiv {
+	height: 100%;
+	float: left;
+}
+
+.rankDiv {
+	width: 8%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.nameDiv {
+	width: 92%;
+	padding-top: 10px;
+}
+
+.playerName {
+	font-size: 20px;
+	padding-left: 5px;
+	position: relative;
+	top: 10px;
+}
+
+.scoreDiv {
+	width: 33%;
+}

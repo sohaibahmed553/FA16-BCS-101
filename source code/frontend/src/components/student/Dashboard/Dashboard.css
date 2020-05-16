@@ -1,0 +1,62 @@
+.contentDiv {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 60px;
+}
+
+.column_1 {
+	flex: 60%;
+	max-width: 60%;
+	padding-right: 30px;
+}
+
+.column_2 {
+	flex: 40%;
+	max-width: 40%;
+}
+
+.column_1 div,
+.column_2 div {
+	vertical-align: middle;
+}
+
+/* Column_1 Divs */
+
+.activeHoursDiv {
+	background-color: white;
+	border-radius: 5px;
+}
+
+/* Column_2 Divs */
+
+.leaderboardDiv {
+	background-color: white;
+	border-radius: 5px;
+}
+
+.rewardsDiv {
+	background-color: white;
+	border-radius: 1px;
+	margin-top: 30px;
+	border-radius: 5%;
+	padding: 10px 37px 10px 37px;
+}
+
+.rewards {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.badges {
+	width: 48px;
+	height: 52px;
+	margin: 3px 4px 3px 0px;
+}
+
+@media all and (max-width: 767px) {
+	.column_1,
+	.column_2 {
+		flex: 100%;
+		max-width: 100%;
+	}
+}

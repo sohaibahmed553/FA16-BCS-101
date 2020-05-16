@@ -1,0 +1,33 @@
+.parent {
+	background-color: #f5f6f7;
+	padding: 20px;
+	min-height: 100vh;
+}
+
+.record {
+	background-color: white;
+}
+
+.font {
+	font-family: Oswald;
+}
+
+/* .color1 {
+	padding: 10px;
+	background-color: #2196F3;
+	border-bottom: 1px solid #F0F1F2;
+} */
+
+.color1 {
+	padding: 15px;
+	background-color: white;
+	border-bottom: 2px solid #f0f1f2;
+	text-align: left;
+	color: #59598e;
+	font-family: Roboto;
+	font-size: 15px;
+}
+.color2 {
+	background-color: #2196f3;
+	color: white;
+}

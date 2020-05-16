@@ -1,0 +1,154 @@
+/*
+==================
+MAIN-BODY STYLES
+==================
+*/
+.body {
+	/* width: 500px;
+	height: 500px;
+	display: flex;
+	justify-content: center; */
+	/* position: fixed; */
+	/* left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0; */
+	overflow: hidden;
+	overflow-y: hidden;
+}
+
+/*
+==================
+SIDER STYLES
+==================
+*/
+
+.sider {
+	background-color: #001529;
+	height: 599px;
+	border-top-right-radius: 7px;
+	border-bottom-right-radius: 7px;
+	text-align: center;
+	padding-top: 50px;
+}
+
+.avatar {
+	background-color: #2196f3;
+}
+
+.name {
+	font-size: 20px;
+	color: grey;
+}
+
+.statsRow {
+	text-align: center;
+	margin-bottom: 60px;
+}
+
+.statsDiv {
+	border-right: 2px solid #1e2a45;
+	box-sizing: border-box;
+}
+
+.statsHeading {
+	font-size: 20px;
+	color: white;
+}
+
+.statsVal {
+	font-size: 30px;
+	color: white;
+	color: #2196f3;
+}
+
+.progressBarDiv {
+	display: flex;
+	justify-content: center;
+}
+
+.indicator {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	font-size: 2.2em;
+	font-weight: 100;
+	color: white;
+	user-select: none;
+}
+
+@media all and (max-width: 767px) {
+	.sider {
+		height: 200px;
+		border-top-right-radius: 0%;
+		border-bottom-right-radius: 4%;
+		border-bottom-left-radius: 4%;
+	}
+
+	.statsRow {
+		position: absolute;
+		top: 90px;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+
+	.statsDiv {
+		border: none;
+	}
+
+	.statsHeading {
+		display: none;
+	}
+	.statsVal {
+		color: white;
+		font-size: 20px;
+		font-style: italic;
+	}
+
+	.progressBarDiv {
+		display: none;
+	}
+}
+
+/*
+==================
+MAIN-CONTENT STYLES
+==================
+*/
+
+.content {
+	height: 599px;
+	background-color: white;
+	padding: 30px 30px 30px 0px;
+	position: none;
+	overflow: hidden;
+	overflow-y: hidden;
+}
+
+.innerdiv {
+	height: 100%;
+	background-color: white;
+	box-shadow: 15px 0px 35px lightgray;
+	border-top-right-radius: 7px;
+	border-bottom-right-radius: 7px;
+	overflow: scroll;
+	overflow-x: hidden;
+}
+
+@media all and (max-width: 767px) {
+	.content {
+		position: relative;
+		top: 30%;
+		padding: 0;
+	}
+	.innerdiv {
+		box-shadow: none;
+	}
+}
