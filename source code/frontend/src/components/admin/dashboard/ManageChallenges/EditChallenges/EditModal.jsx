@@ -40,26 +40,23 @@ const tailLayout = {
   },
 };
 
-const EditLink = (props) => {
+const EditModal = (props) => {
   const [form] = Form.useForm();
 
   const [totalCourses, setTotalCourses] = React.useState([]);
   const [totalStages, setTotalStages] = React.useState([]);
   const [visible, setVisible] = React.useState(false);
 
-  //load all courses
-  const loadCourses = React.useCallback(async () => {
-    await axios
-      .get("http://localhost:4000/api/courses/" + props.instructor.InstructorID)
-      .then((res) => {
-        setTotalCourses(res.data);
-        //console.log(res.data);
-      });
-  }, [props.instructor]);
+  const loadCourses = () => {
+    axios.get("http://localhost:4000/api/courses/").then((res) => {
+      setTotalCourses(res.data);
+    });
+  };
+
   React.useEffect(() => {
     // console.log("Sending Axios Get");
     loadCourses();
-  }, [loadCourses]);
+  }, []);
 
   //-----------when any course is selected stages will be selected accordingly----------------
 
@@ -78,23 +75,29 @@ const EditLink = (props) => {
   };
 
   const onFinish = (values) => {
-    const { stage, link } = values;
-    console.log(props.data);
+    const { stage, question, a, b, c, d, answer } = values;
 
     axios
-      .put("http://localhost:4000/api/links/" + props.data.LinkID, {
+      .put("http://localhost:4000/api/challenges/" + props.data.QID, {
         stage,
-        link,
+        question,
+        a,
+        b,
+        c,
+        d,
+        answer,
       })
       .then((res) => {
         //console.log(res);
-        props.loadData();
-        message.success("Link has been updated.");
+        props.onEditQuestions();
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err.response.data.error[0]);
+      });
 
     //console.log(props.data.QID);
 
+    message.success("Question has been updated.");
     setVisible(false);
   };
 
@@ -104,7 +107,7 @@ const EditLink = (props) => {
         edit
       </Button>
       <Modal
-        className="w-50"
+        className="w-75"
         centered
         visible={visible}
         onCancel={handleCancel}
@@ -114,13 +117,20 @@ const EditLink = (props) => {
           onFinish={onFinish}
           {...layout}
           form={form}
-          className="mt-1"
+          className="mt-3"
           name="basic"
           initialValues={{
-            link: props.data.Link,
+            question: props.data.Questions,
+            a: props.data.A,
+            b: props.data.B,
+            c: props.data.C,
+            d: props.data.D,
+            answer: props.data.Answer,
           }}
         >
-          <h5 className="d-flex justify-content-center">Edit Link</h5>
+          <h5 className="d-flex justify-content-center">
+            Edit Challenge Question
+          </h5>
           <br />
           {/*--------------------------Select Course and Stage--------------------- */}
           <Row>
@@ -167,16 +177,106 @@ const EditLink = (props) => {
           </Row>
           {/*--------------------------Question--------------------- */}
           <Form.Item
-            label="Link"
-            name="link"
+            label="Question"
+            name="question"
             rules={[
               {
                 required: true,
-                message: "Please input link!",
+                message: "Please input question!",
               },
             ]}
           >
             <Input />
+          </Form.Item>
+
+          {/*--------------------------option A and B--------------------- */}
+
+          <Row>
+            <Col span={12}>
+              <Form.Item
+                {...leftOptionsLayout}
+                label="A"
+                name="a"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input first option!",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                {...rightOptionsLayout}
+                label="B"
+                name="b"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input second option!",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          {/*--------------------------option C and D--------------------- */}
+
+          <Row>
+            <Col span={12}>
+              <Form.Item
+                {...leftOptionsLayout}
+                label="C"
+                name="c"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input third option!",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                {...rightOptionsLayout}
+                label="D"
+                name="d"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input fourth option!",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          {/*--------------------------Answer and Difficulty--------------------- */}
+
+          <Form.Item
+            label="Answer"
+            name="answer"
+            rules={[
+              {
+                required: true,
+                message: "Please select answer!",
+              },
+            ]}
+          >
+            <Select placeholder="Answer">
+              <Option value="A">A</Option>
+              <Option value="B">B</Option>
+              <Option value="C">C</Option>
+              <Option value="D">D</Option>
+            </Select>
           </Form.Item>
 
           <Form.Item {...tailLayout}>
@@ -190,4 +290,4 @@ const EditLink = (props) => {
   );
 };
 
-export default EditLink;
+export default EditModal;

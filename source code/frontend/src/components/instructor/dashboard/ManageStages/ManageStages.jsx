@@ -23,12 +23,12 @@ const ManageStages = (props) => {
       )
       .then((res) => {
         setCourses(res.data);
-        setLoading(false);
+        //setLoading(false);
       });
   }, [props.instructor]);
 
   const loadStages = async (courseid) => {
-    setLoading(true);
+    //setLoading(true);
     await axios
       .get("http://localhost:4000/api/stages/" + courseid)
       .then((res) => {

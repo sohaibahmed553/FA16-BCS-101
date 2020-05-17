@@ -16,18 +16,20 @@ const ManageLinks = (props) => {
   const [stageOnEdit, setStageOnEdit] = React.useState();
   const [loading, setLoading] = React.useState(false);
 
+  const loadCourses = React.useCallback(async () => {
+    setLoading(true);
+    await axios
+      .get("http://localhost:4000/api/courses/" + props.instructor.InstructorID)
+      .then((res) => {
+        setTotalCourses(res.data);
+        setLoading(false);
+        //console.log(res.data);
+      });
+  }, [props.instructor]);
+
   React.useEffect(() => {
     loadCourses();
-  }, []);
-
-  const loadCourses = async () => {
-    setLoading(true);
-    await axios.get("http://localhost:4000/api/courses").then((res) => {
-      setTotalCourses(res.data);
-      setLoading(false);
-      //console.log(res.data);
-    });
-  };
+  }, [loadCourses]);
 
   const onCourseChange = (value) => {
     setLoading(true);
@@ -122,7 +124,7 @@ const ManageLinks = (props) => {
           <Row>
             <Col span={2}></Col>{" "}
             <Col span={20}>
-              <AddLink loadData={loadData} />
+              <AddLink loadData={loadData} instructor={props.instructor} />
             </Col>
             <Col span={2}></Col>{" "}
           </Row>
@@ -139,7 +141,12 @@ const ManageLinks = (props) => {
         {!loading && (
           <tbody>
             {data.map((data, index) => (
-              <SingleLink data={data} key={index} loadData={loadData} />
+              <SingleLink
+                data={data}
+                key={index}
+                loadData={loadData}
+                instructor={props.instructor}
+              />
             ))}
           </tbody>
         )}

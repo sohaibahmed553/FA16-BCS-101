@@ -7,6 +7,56 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 const { confirm } = Modal;
 
 const SingleCourse = (props) => {
+  /*
+  const checkAllowed = async () => {
+    let allowed = 1;
+    await axios
+      .get("http://localhost:4000/api/courses/eachstage/" + props.data.CourseID)
+      .then(async (res) => {
+        for (let i = 0; i < res.data.length; i++) {
+          await axios
+            .get("http://localhost:4000/api/courses/allow/" + res.data[i].StID)
+            .then(async (response) => {
+              if (response.data === 0) {
+                allowed = 0;
+              }
+            });
+        }
+      });
+    return allowed;
+  };*/
+
+  const checkAllowed = async () => {
+    const { data } = await axios.get(
+      `http://localhost:4000/api/courses/eachstage/${props.data.CourseID}`
+    );
+    const arrAllow = await Promise.all(
+      data.map(async ({ StID }) => {
+        return await axios.get(
+          `http://localhost:4000/api/courses/allow/${StID}`
+        );
+      })
+    );
+    const allowFind = arrAllow.find((data) => data.data === 0);
+
+    return !Boolean(allowFind) ? 1 : 0;
+  };
+
+  const changeCourseStatus = async () => {
+    if (await checkAllowed()) {
+      await axios
+        .put("http://localhost:4000/api/courses/status/" + props.data.CourseID)
+        .then((res) => {
+          message.success("You course is now online.");
+          props.loadData();
+        });
+    } else {
+      message.warning(
+        "Add atleast 20 questions in every difficulty of every stage to online your course."
+      );
+    }
+  };
+
   const toogleOnline = () => {
     confirm({
       title: "Warning...",
@@ -18,12 +68,16 @@ const SingleCourse = (props) => {
       cancelText: "No",
       onOk() {
         axios
-          .put(
-            "http://localhost:4000/api/courses/status/" + props.data.CourseID
+          .get(
+            "http://localhost:4000/api/courses/countstages/" +
+              props.data.CourseID
           )
           .then((res) => {
-            message.success("You course is now online.");
-            props.loadData();
+            if (res.data[0].totalStages >= 3) {
+              changeCourseStatus();
+            } else {
+              message.warning("Add atleast 3 stages to online your course.");
+            }
           });
       },
       onCancel() {

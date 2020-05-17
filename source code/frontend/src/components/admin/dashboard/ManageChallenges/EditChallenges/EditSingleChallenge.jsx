@@ -1,6 +1,7 @@
 import React from "react";
 
 import EditModal from "./EditModal";
+import DeleteChallenge from "./DeleteChallenge";
 
 import "antd/dist/antd.css";
 
@@ -13,12 +14,11 @@ const EditSingleQuestion = (props) => {
       <td className="align-middle ">{props.data.C}</td>
       <td className="align-middle ">{props.data.D}</td>
       <td className="align-middle text-center">{props.data.Answer}</td>
-      <td className="align-middle ">{props.data.Explanation}</td>
       <td className="align-middle text-center">
-        <EditModal
+        <EditModal data={props.data} onEditQuestions={props.onEditQuestions} />
+        <DeleteChallenge
           data={props.data}
-          onEditQuestions={props.onEditQuestions}
-          instructor={props.instructor}
+          onDeleteQuestion={props.onEditQuestions}
         />
       </td>
     </tr>

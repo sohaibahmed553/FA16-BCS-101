@@ -2,7 +2,7 @@ import React from "react";
 
 const Logout = (props) => {
   React.useEffect(() => {
-    localStorage.removeItem("admintoken");
+    localStorage.removeItem("instructortoken");
     window.location.reload(false);
   });
   return <React.Fragment />;

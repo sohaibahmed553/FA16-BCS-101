@@ -7,12 +7,15 @@ import {
   UserAddOutlined,
   LogoutOutlined,
   LinkOutlined,
+  GiftOutlined,
 } from "@ant-design/icons";
 
 import Profile from "./Profile";
 import Dashboard from "./dashboard/Dashboard/Dashboard";
 import AddQuestions from "./dashboard/ManageQuestions/AddQuestions";
 import EditQuestions from "./dashboard/ManageQuestions/EditQuestions/EditQuestions";
+import AddChallenges from "./dashboard/ManageChallenges/AddChallenges";
+import EditChallenges from "./dashboard/ManageChallenges/EditChallenges/EditChallenges";
 import ManageLinks from "./dashboard/ManageLinks/ManageLinks";
 import AddAdmin from "./dashboard/AddAdmin";
 import Logout from "./dashboard/Logout";
@@ -77,8 +80,28 @@ const Admin = (props) => {
                 </Menu.Item>
               </SubMenu>
 
+              {/*----------------Manage Challenges----------------- */}
+              <SubMenu
+                key="sub2"
+                title={
+                  <span>
+                    <GiftOutlined />
+                    Manage Challenges
+                  </span>
+                }
+              >
+                <Menu.Item key="4">
+                  Add
+                  <Link to="/admin/addchallenges" aria-current="page" />
+                </Menu.Item>
+                <Menu.Item key="5">
+                  Edit
+                  <Link to="/admin/editchallenges" aria-current="page" />
+                </Menu.Item>
+              </SubMenu>
+
               {/*----------------Manage Links----------------- */}
-              <Menu.Item key="5">
+              <Menu.Item key="6">
                 <span>
                   <LinkOutlined />
                   Manage Links
@@ -88,7 +111,7 @@ const Admin = (props) => {
 
               {/*----------------Add Admin----------------- */}
 
-              <Menu.Item key="6">
+              <Menu.Item key="7">
                 <span>
                   <UserAddOutlined />
                   Add Admin
@@ -97,7 +120,7 @@ const Admin = (props) => {
               </Menu.Item>
 
               {/*----------------Logout----------------- */}
-              <Menu.Item key="7">
+              <Menu.Item key="8">
                 <span>
                   <LogoutOutlined />
                   Logout
@@ -122,6 +145,11 @@ const Admin = (props) => {
                 <Route path="/admin/manageLinks" component={ManageLinks} />
                 <Route path="/admin/addadmin" component={AddAdmin} />
                 <Route path="/admin/logout" component={Logout} />
+                <Route path="/admin/addchallenges" component={AddChallenges} />
+                <Route
+                  path="/admin/editchallenges"
+                  component={EditChallenges}
+                />
 
                 <Route path="/admin/profile">
                   <Profile admin={props.admin} />

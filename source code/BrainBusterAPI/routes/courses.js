@@ -44,6 +44,50 @@ router.get("/stage/:StID", async (req, res) => {
   });
 });
 
+//@route Get api/courses/countstages/:CourseID
+//@desc pass course id and get stage count
+//@access Public
+router.get("/countstages/:CourseID", async (req, res) => {
+  let sql = "select count(StID) as totalStages from Stages where courseId = ?";
+  let query = conn.query(sql, [req.params.CourseID], (err, results) => {
+    res.send(results);
+  });
+});
+
+//@route Get api/courses/eachstage/:CourseID
+//@desc pass course id and get questions count
+//@access Public
+router.get("/eachstage/:CourseID", async (req, res) => {
+  try {
+    let sql = "select StID from Stages where courseID = ?";
+    conn.query(sql, [req.params.CourseID], async (err, results) => {
+      res.send(results);
+    });
+  } catch (err) {
+    if (err) throw err;
+  }
+});
+
+//@route Get api/courses/allow/:StID
+//@desc pass stage and get questions count
+//@access Public
+router.get("/allow/:StID", async (req, res) => {
+  let allow = 1;
+  try {
+    let sql =
+      "select Difficulty, count(QID) as questions from questions where StID = ? group by Difficulty";
+    conn.query(sql, [req.params.StID], async (err, results) => {
+      if (results.length === 0) allow = 0;
+      for (let i = 0; i < results.length; i++) {
+        if (results[i].questions <= 20) allow = 0;
+      }
+      res.json(allow);
+    });
+  } catch (err) {
+    if (err) throw err;
+  }
+});
+
 //@route Post api/courses
 //@desc add new course
 //@access Public
