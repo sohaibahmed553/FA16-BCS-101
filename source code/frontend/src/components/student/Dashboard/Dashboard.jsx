@@ -39,7 +39,7 @@ class Dashboard extends Component {
 				<div className="column_2">
 					<div className="leaderboardDiv" onClick={this.showModal}>
 						<div style={{ cursor: "pointer" }}>
-							<LeaderboardSmall />
+							<LeaderboardSmall logedInStudent={this.props.logedInStudent} />
 						</div>
 
 						<Modal

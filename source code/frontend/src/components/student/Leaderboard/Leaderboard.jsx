@@ -17,7 +17,6 @@ class FinalResult extends Component {
 			.get("http://localhost:4000/api/scores/leaderboard")
 			.then((response) => {
 				this.setState({ data: response.data });
-				console.log(response.data);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -34,45 +33,49 @@ class FinalResult extends Component {
 		return (
 			<div className="body">
 				<Row>
-					<Col sm={24} md={10} className="sider">
-						<Avatar size={64} className="avatar">
-							User
-						</Avatar>
-						<br />
-						<Text className="name">ali ahmad</Text>
-						<br />
-						<br />
-						<br />
-						<Row className="statsRow">
-							<Col span={12} className="statsDiv">
-								<Text className="statsHeading">Rank</Text>
-								<br />
-								<Text className="statsVal">1st</Text>
-							</Col>
-							<Col span={12}>
-								<Text className="statsHeading">Score</Text>
-								<br />
-								<Text className="statsVal">536</Text>
-							</Col>
-						</Row>
+					{this.state.data && (
+						<Col sm={24} md={10} className="sider">
+							<Avatar size={64} className="avatar">
+								User
+							</Avatar>
+							<br />
+							<Text className="name" style={{ color: "white" }}>
+								{this.state.data[0].NickName}
+							</Text>
+							<br />
+							<br />
+							<br />
+							<Row className="statsRow">
+								<Col span={12} className="statsDiv">
+									<Text className="statsHeading">Rank</Text>
+									<br />
+									<Text className="statsVal">1st</Text>
+								</Col>
+								<Col span={12}>
+									<Text className="statsHeading">Score</Text>
+									<br />
+									<Text className="statsVal">{this.state.data[0].score}</Text>
+								</Col>
+							</Row>
 
-						<div className="progressBarDiv">
-							<ProgressBar
-								radius={80}
-								progress={progress}
-								strokeWidth={8}
-								strokeColor={themeColor}
-								trackStrokeWidth={8}
-								pointerRadius={8}
-								pointerStrokeWidth={5}
-								pointerStrokeColor={themeColor}
-							>
-								<div className="indicator">
-									<div>{progress}%</div>
-								</div>
-							</ProgressBar>
-						</div>
-					</Col>
+							<div className="progressBarDiv">
+								<ProgressBar
+									radius={80}
+									progress={progress}
+									strokeWidth={8}
+									strokeColor={themeColor}
+									trackStrokeWidth={8}
+									pointerRadius={8}
+									pointerStrokeWidth={5}
+									pointerStrokeColor={themeColor}
+								>
+									<div className="indicator">
+										<div>{this.state.data[0].score * 0.5}%</div>
+									</div>
+								</ProgressBar>
+							</div>
+						</Col>
+					)}
 					<Col sm={24} md={14} className="content">
 						<div className="innerdiv">
 							{this.state.data && <PlayersList data={this.state.data} _handle={this._handle} />}

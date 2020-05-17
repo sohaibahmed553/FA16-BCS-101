@@ -32,7 +32,7 @@ class PlayersList extends Component {
 									</Text>
 									<Text className="playerName">{data.NickName}</Text>
 
-									<Progress percent={80} status="active" />
+									<Progress percent={Math.ceil(data.score * 0.5)} status="active" />
 								</div>
 								{/* <div className="scoreDiv">{data.score}</div> */}
 							</li>
